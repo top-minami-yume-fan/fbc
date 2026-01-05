@@ -1,0 +1,6 @@
+Route groups are useful for:
+
+Organizing routes by site section, intent, or team. e.g. marketing pages, admin pages, etc.
+Enabling nested layouts in the same route segment level:
+Creating multiple nested layouts in the same segment, including multiple root layouts
+Adding a layout to a subset of routes in a common segment
