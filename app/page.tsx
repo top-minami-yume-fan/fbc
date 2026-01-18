@@ -1,11 +1,10 @@
 import Image from "next/image";
 import DummyContent from "@/components/DummyContent";
 import { getGalleryImages } from "@/lib/getGalleryImages";
-import { getHomeWelcome } from "@/lib/getHomeWelcome";
+import { getMarkdownContent } from "@/lib/getMarkdownContent";
 import WideGallery from "@/components/WideGallery";
 
 export default function Home() {
-    const welcome_content = getHomeWelcome();
 
     return (
         <main className="flex flex-col">
@@ -25,7 +24,7 @@ export default function Home() {
                         About Us
                     </p>
 
-                    <DummyContent content={welcome_content} />
+                    <DummyContent content={getMarkdownContent("welcome.md")} />
                 </div>
             </section>
 

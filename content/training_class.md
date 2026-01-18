@@ -1,0 +1,3 @@
+# Training Class
+
+The class is for students who already have a good badminton foundation. The coaches will strengthen the student's skills and physical fitness training in the training class. At the same time, the coaches will organize various lively and engaging matches among the students, explain and demonstrate team coordination and game strategies, and improve the students' teamwork and competitive awareness.

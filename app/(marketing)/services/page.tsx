@@ -1,10 +1,8 @@
-import React from "react";
 import Image from "next/image";
 import DummyContent from "@/components/DummyContent";
+import { getMarkdownContent } from "@/lib/getMarkdownContent";
 
 export default function Services() {
-
-    const paragraphContent = "Are your children looking for a fun and active way to improve their badminton skills? Then join our junior badminton class! Our experienced coaches will guide your child through thebasics and help them develop their technique, agility, and coordination."
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
@@ -14,7 +12,7 @@ export default function Services() {
                     <h1>Stringing Service</h1>
                 </div>
                 <div>
-                    <DummyContent content={paragraphContent}/>
+                    <DummyContent content={getMarkdownContent("stringing.md")}/>
                 </div>
 
                 <div>
