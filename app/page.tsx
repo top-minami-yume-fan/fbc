@@ -1,28 +1,33 @@
 import Image from "next/image";
 import DummyContent from "@/components/DummyContent";
+import { getGalleryImages } from "@/lib/getGalleryImages";
+import { getHomeWelcome } from "@/lib/getHomeWelcome";
+import WideGallery from "@/components/WideGallery";
 
 export default function Home() {
 
-    const dummy_content = "Fleetwood Badminton Club (FBC) was founded in 2016, and started with various school gyms in Surrey on flexible schedules. FBC strives to create a great environment to learn, train, and play the sport of badminton.  Badminton is a fun and exciting sport that boosts one's physical, mental, and social well-being.  FBC will provide a safe and healthy environment for children and adults to play a sport they love while encouraging the development of a positive attitude and lifestyle."
-    
+    const welcome_content = getHomeWelcome();
+
     return (
         <div className="flex flex-col items-center p-10">
-            <div>
-                <h1>Welcome to Fleetwood Badminton Club!</h1>
-            </div>
+            <WideGallery gallery_images={getGalleryImages()} />
             <div>
                 <Image
                     src="/images/placeholder.png"
                     alt="Badminton Club"
                     width={500}
                     height={300}
+                    className="w-auto h-auto"
                 />
+            </div>
+            <div>
+                <h1>Welcome to Fleetwood Badminton Club!</h1>
             </div>
             <div>
                 About Us
             </div>
             <div>
-                <DummyContent content={dummy_content}/>
+                <DummyContent content={getHomeWelcome()}/>
             </div>
             <div>
                 <Image 
@@ -30,6 +35,7 @@ export default function Home() {
                     alt="Badminton Club 2"
                     width={500}
                     height={300}
+                    className="w-auto h-auto"
                 />
             </div>
             <div>

@@ -1,21 +1,47 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 0);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
-        <nav className="relative flex items-center justify-between px-6 py-4 border-b bg-white">
-            <div className="text-xl font-semibold">                
+        <nav className={
+                `
+                sticky top-0 z-50 flex items-center justify-between 
+                px-6 py-3 border-b transition-colors duration-300 
+                ${isScrolled ? "bg-white" : "bg-transparent"}
+                `
+        }>
+            <div className="flex items-center gap-2">
                 <Image
                     src="/logo.png"
                     alt="Logo"
-                    width={80}
-                    height={20} 
+                    width={60}
+                    height={15}
+                    className="w-auto h-auto"
                 />
+                <Link href="/" className="hover:opacity-70 transition">
+                    <Image
+                        src="/icons/shuttlecock.svg"
+                        alt="Home"
+                        width={24}
+                        height={24}
+                    />
+                </Link>
             </div>
 
             <div className="relative">
@@ -32,13 +58,15 @@ export default function Navbar() {
                 </button>
 
                 {open && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
-                        <a href="/" className="block px-4 py-2 hover:bg-gray-100">Home</a>
-                        <a href="/lessons" className="block px-4 py-2 hover:bg-gray-100">Lessons</a>
-                        <a href="/camps" className="block px-4 py-2 hover:bg-gray-100">Camps</a>
-                        <a href="/drop-in" className="block px-4 py-2 hover:bg-gray-100">Drop In</a>
-                        <a href="/services" className="block px-4 py-2 hover:bg-gray-100">Services</a>
-                        <a href="/community" className="block px-4 py-2 hover:bg-gray-100">Community</a>
+                    <div className="fixed left-0 right-0 top-12.25 w-full bg-white shadow-xl border-b border-gray-100 animate-in fade-in duration-200">
+                        <div className="flex flex-col px-6 py-4">
+                            <Link href="/" className="py-3 hover:text-blue-600 transition-colors">Lessons</Link>
+                            <Link href="/lessons" className="py-3 hover:text-blue-600 transition-colors">Camps</Link>
+                            <Link href="/camps" className="py-3 hover:text-blue-600 transition-colors">Drop In</Link>
+                            <Link href="/drop-in" className="py-3 hover:text-blue-600 transition-colors">Services</Link>
+                            <Link href="/services" className="py-3 hover:text-blue-600 transition-colors">Community</Link>
+                            <Link href="/community" className="py-3 hover:text-blue-600 transition-colors">Contact</Link>
+                        </div>
                     </div>
                 )}
             </div>
