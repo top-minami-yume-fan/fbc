@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,65 +9,79 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 0);
-        };
-
+        const handleScroll = () => setIsScrolled(window.scrollY > 0);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    return (
-        <nav className={
-                `
-                sticky top-0 z-50 flex items-center justify-between 
-                px-6 py-3 border-b transition-colors duration-300 
-                ${isScrolled ? "bg-white" : "bg-transparent"}
-                `
-        }>
-            <div className="flex items-center gap-2">
-                <Image
-                    src="/logo.png"
-                    alt="Logo"
-                    width={60}
-                    height={15}
-                    className="w-auto h-auto"
-                />
-                <Link href="/" className="hover:opacity-70 transition">
-                    <Image
-                        src="/icons/shuttlecock.svg"
-                        alt="Home"
-                        width={24}
-                        height={24}
-                    />
-                </Link>
-            </div>
+    const menuCategories = [
+        {
+            header: "Home",
+            items: ["Home"],
+        },
+        {
+            header: "Programs",
+            items: ["Lessons", "Camps", "Drop In", "Services"],
+        },
+        {
+            header: "Community",
+            items: ["Community", "Contact"],
+        },
+    ];
 
-            <div className="relative">
-                <button onClick={() => setOpen(!open)}
+    return (
+        <nav
+            className={`sticky top-0 z-50 transition-colors duration-300 border-b ${isScrolled ? "bg-white" : "bg-transparent"
+                }`}
+        >
+            {/* Top row: logo + hamburger */}
+            <div className="flex items-center justify-between px-6 py-3 relative">
+                {/* Logo */}
+                <div className="flex items-center gap-2">
+                    <Image src="/logo.png" alt="Logo" width={60} height={15} />
+                    <Link href="/">
+                        <Image src="/icons/shuttlecock.svg" alt="Home" width={24} height={24} />
+                    </Link>
+                </div>
+
+                {/* Hamburger always visible */}
+                <button
                     className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100"
+                    onClick={() => setOpen(!open)}
                 >
-                    <Image
-                        src="/icons/menu.svg"
-                        alt="Menu Icon"
-                        width={20}
-                        height={20}
-                    />
-                    <span className={`transition ${open ? "rotate-180" : ""}`}>▾</span>
+                    <Image src="/icons/menu.svg" alt="Menu Icon" width={20} height={20} />
+                    <span className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
+                        ▾
+                    </span>
                 </button>
 
-                {open && (
-                    <div className="fixed left-0 right-0 top-12.25 w-full bg-white shadow-xl border-b border-gray-100 animate-in fade-in duration-200">
-                        <div className="flex flex-col px-6 py-4">
-                            <Link href="/" className="py-3 hover:text-blue-600 transition-colors">Lessons</Link>
-                            <Link href="/lessons" className="py-3 hover:text-blue-600 transition-colors">Camps</Link>
-                            <Link href="/camps" className="py-3 hover:text-blue-600 transition-colors">Drop In</Link>
-                            <Link href="/drop-in" className="py-3 hover:text-blue-600 transition-colors">Services</Link>
-                            <Link href="/services" className="py-3 hover:text-blue-600 transition-colors">Community</Link>
-                            <Link href="/community" className="py-3 hover:text-blue-600 transition-colors">Contact</Link>
-                        </div>
+                {/* Animated dropdown overlay */}
+                <div
+                    className={
+                        `
+                            absolute left-0 top-full w-full bg-white shadow-lg border-t border-gray-200 z-50
+                            transform transition-all duration-300 origin-top
+                            ${open ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0 pointer-events-none"}
+                        `
+                }>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 py-4">
+                        {menuCategories.map((category) => (
+                            <div key={category.header} className="flex flex-col">
+                                <h4 className="font-semibold mb-2">{category.header}</h4>
+                                {category.items.map((item) => (
+                                    <Link
+                                        key={item}
+                                        href={`/${item.toLowerCase().replace(/ /g, "-")}`}
+                                        className="py-1 hover:text-blue-600 transition-colors"
+                                        onClick={() => setOpen(false)}
+                                    >
+                                        {item}
+                                    </Link>
+                                ))}
+                            </div>
+                        ))}
                     </div>
-                )}
+                </div>
             </div>
         </nav>
     );
