@@ -4,6 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+/*
+    TODO: 
+    - Get rid of birdie icon.
+    - Add a "Programs" dropdown with links to Lessons, Camps, and Drop In.
+    - Add a "Services" dropdown with links to Services and Stringing.
+    - Add a "Community" dropdown with links to Community, News, and Contact.
+*/
+
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [desktopOpen, setDesktopOpen] = useState(false);

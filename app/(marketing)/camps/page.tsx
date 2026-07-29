@@ -1,8 +1,10 @@
 import Image from "next/image";
 import DummyContent from "@/components/DummyContent";
-import { getMarkdownContent } from "@/lib/getMarkdownContent";
+import { getContent } from "@/lib/getContent";
 
-export default function Camps() {
+export default async function Camps() {
+    const summerCampContent = await getContent("summer_camp.md");
+    const trainingClassContent = await getContent("training_class.md");
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
@@ -13,7 +15,7 @@ export default function Camps() {
 
             <div className="flex flex-row-reverse gap-4 p-4">
                 <div>
-                    <DummyContent content={getMarkdownContent("summer_camp.md")} />
+                    <DummyContent content={summerCampContent} />
                 </div>
                 <Image
                     src="/images/camps/camps-2.png"
@@ -27,7 +29,7 @@ export default function Camps() {
 
             <div className="flex flex-row gap-4 p-4">
                 <div>
-                    <DummyContent content={getMarkdownContent("training_class.md")} />
+                    <DummyContent content={trainingClassContent} />
                 </div>
                 <Image
                     src="/images/camps/camps-3.png"
