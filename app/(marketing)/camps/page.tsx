@@ -1,6 +1,6 @@
 import Image from "next/image";
 import DummyContent from "@/components/DummyContent";
-import { getContent } from "@/lib/getContent";
+import getContent from "@/lib/getContent";
 
 export default async function Camps() {
     const summerCampContent = await getContent("summer_camp.md");
