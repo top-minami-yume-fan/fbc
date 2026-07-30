@@ -1,8 +1,9 @@
 import Image from "next/image";
 import DummyContent from "@/components/DummyContent";
-import { getMarkdownContent } from "@/lib/getMarkdownContent";
+import getContent from "@/lib/getContent";
 
-export default function Lessons() {
+export default async function Lessons() {
+    const lessonsContent = await getContent("lessons.md");
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
@@ -21,7 +22,7 @@ export default function Lessons() {
                     />
                 </div>
                 <div>
-                    <DummyContent content={getMarkdownContent("lessons.md")} />
+                    <DummyContent content={lessonsContent} />
                 </div>
             </div>
 

@@ -1,8 +1,9 @@
 import Image from "next/image";
 import DummyContent from "@/components/DummyContent";
-import { getMarkdownContent } from "@/lib/getMarkdownContent";
+import getContent from "@/lib/getContent";
 
-export default function Services() {
+export default async function Services() {
+    const stringingContent = await getContent("stringing.md");
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
@@ -12,7 +13,7 @@ export default function Services() {
                     <h1>Stringing Service</h1>
                 </div>
                 <div>
-                    <DummyContent content={getMarkdownContent("stringing.md")}/>
+                    <DummyContent content={stringingContent}/>
                 </div>
 
                 <div>

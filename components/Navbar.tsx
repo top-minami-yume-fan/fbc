@@ -4,6 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+/*
+    TODO: 
+    - Get rid of birdie icon.
+    - Add a "Programs" dropdown with links to Lessons, Camps, and Drop In.
+    - Add a "Services" dropdown with links to Services and Stringing.
+    - Add a "Community" dropdown with links to Community, News, and Contact.
+*/
+
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [desktopOpen, setDesktopOpen] = useState(false);
@@ -54,7 +62,7 @@ export default function Navbar() {
             `}
         >
             {/* NAV BAR */}
-            <div className="flex items-center justify-between px-6 py-3">
+            <div className="flex items-center justify-between px-6 py-6 md:py-6 min-h-[72px]">
 
                 {/* LEFT */}
                 <div className="flex items-center gap-12">
