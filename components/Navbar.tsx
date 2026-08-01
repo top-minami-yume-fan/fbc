@@ -62,20 +62,19 @@ export default function Navbar() {
             `}
         >
             {/* NAV BAR */}
-            <div className="flex items-center justify-between px-6 py-6 md:py-6 min-h-[72px]">
+            <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-6 min-h-[72px]">
 
                 {/* LEFT */}
-                <div className="flex items-center gap-12">
-
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2">
-                        <Image src="/logo.png" alt="Logo" width={60} height={15} />
-                        <Image src="/icons/shuttlecock.svg" alt="Home" width={24} height={24} />
+                <div className="flex flex-1 items-center justify-start">
+                    <Link href="/" className="flex items-center gap-3">
+                        <Image src="/logo.png" alt="Logo" width={84} height={24} />
                     </Link>
+                </div>
 
-                    {/* DESKTOP TRIGGERS */}
+                {/* CENTER */}
+                <div className="hidden md:flex flex-1 items-center justify-center">
                     <div
-                        className="hidden md:flex items-center gap-8 font-medium"
+                        className="flex items-center gap-8 font-medium"
                         onMouseEnter={openDesktop}
                         onMouseLeave={closeDesktopWithDelay}
                     >
@@ -92,7 +91,7 @@ export default function Navbar() {
                 </div>
 
                 {/* RIGHT */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center justify-end gap-6">
                     {/* Mobile hamburger */}
                     <button
                         onClick={() => setMobileOpen(true)}
@@ -106,7 +105,7 @@ export default function Navbar() {
                     <Link href="/placeholder.jpg">
                         <Image
                             src="/icons/menu.svg"
-                            alt="Profile"
+                            alt="Menu"
                             width={36}
                             height={36}
                             className="rounded-full hover:opacity-80 transition"

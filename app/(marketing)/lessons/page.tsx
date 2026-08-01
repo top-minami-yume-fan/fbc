@@ -1,60 +1,111 @@
-import Image from "next/image";
-import DummyContent from "@/components/DummyContent";
-import getContent from "@/lib/getContent";
+"use client";
 
-export default async function Lessons() {
-    const lessonsContent = await getContent("lessons.md");
+import { useState } from "react";
+import { LessonSession, sessions } from "@/lib/lessonSessions";
+import LessonSessionsCards from "@/components/LessonSessionsCards";
+
+export default function Lessons() {
+    const [selectedSession, setSelectedSession] = useState<LessonSession | null>(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = (session: LessonSession) => {
+        setSelectedSession(session);
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedSession(null);
+    };
+
+    const lessonsTopContent = () => {
+        return (
+            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Lesson sessions</p>
+                    <h1 className="mt-3 text-4xl font-semibold text-slate-900 sm:text-5xl">
+                        Weekly badminton schedule
+                    </h1>
+                </div>
+                <p className="max-w-xl text-sm leading-6 text-slate-600">
+                    Each session is shown like a calendar event with day, level and start/end time so you can quickly find the best class for your skill level.
+                </p>
+            </div>
+        )
+    }
 
     return (
-        <div className="flex flex-col items-center gap-4 p-4">
+        <main className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-10">
+            <div className="mx-auto max-w-6xl space-y-8">
+                <section className="rounded-4xl bg-white p-8 shadow-xl shadow-slate-200/50">
+                    {lessonsTopContent()}
+                </section>
 
-            <div>
-                <h1>Lessons</h1>
+                <LessonSessionsCards sessions={sessions} onCheckAvailability={openModal} />
+
+                <section className="rounded-4xl bg-slate-900 p-8 text-white shadow-xl shadow-slate-900/10">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <p className="text-sm uppercase tracking-[0.3em] text-emerald-300">Need help choosing?</p>
+                            <h2 className="mt-2 text-3xl font-semibold">Find the best lesson for your level</h2>
+                        </div>
+                        <a
+                            href="/contact"
+                            className="inline-flex items-center justify-center rounded-3xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-emerald-400"
+                        >
+                            Contact us
+                        </a>
+                    </div>
+                </section>
+
+                {showModal && selectedSession && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4">
+                        <div className="w-full max-w-xl overflow-hidden rounded-[2rem] bg-white p-6 shadow-2xl">
+                            <div className="flex items-start justify-between gap-4">
+                                <div>
+                                    <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Availability</p>
+                                    <h2 className="mt-2 text-3xl font-semibold text-slate-900">{selectedSession.day} · {selectedSession.level}</h2>
+                                </div>
+                                <button
+                                    onClick={closeModal}
+                                    className="rounded-full bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-200"
+                                >
+                                    Close
+                                </button>
+                            </div>
+
+                            <div className="mt-6 space-y-4 text-slate-700">
+                                <p className="text-sm leading-7">
+                                    This class is currently full, but the waitlist is available. Please sign up to reserve your spot if one opens up.
+                                </p>
+                                <div className="rounded-3xl bg-slate-50 p-4 shadow-sm">
+                                    <p className="text-sm font-semibold text-slate-900">Session details</p>
+                                    <ul className="mt-3 space-y-3 text-sm leading-6 text-slate-700">
+                                        <li><span className="font-semibold">Day:</span> {selectedSession.day}</li>
+                                        <li><span className="font-semibold">Time:</span> {selectedSession.time}</li>
+                                        <li><span className="font-semibold">Location:</span> {selectedSession.location}</li>
+                                        <li><span className="font-semibold">Level:</span> {selectedSession.level}</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+                                <button
+                                    onClick={closeModal}
+                                    className="rounded-3xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    className="rounded-3xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-emerald-400"
+                                >
+                                    Join waitlist
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
-
-            <div className="flex flex-row">
-                <div>
-                    <Image
-                        src="/images/placeholder.png"
-                        alt="Badminton Lessons"
-                        width={250}
-                        height={250}
-                    />
-                </div>
-                <div>
-                    <DummyContent content={lessonsContent} />
-                </div>
-            </div>
-
-            <div>
-                <div>
-                    <h2>
-                        Winter 2026 Badminton Lessons
-                    </h2>
-                    <h3>
-                        Registration Open!
-                    </h3>
-                </div>
-                <div>
-                    <h3>North Surrey</h3>
-                    <ul>
-                        <li>Tuesday Night ( Jan 06 - Mar 10, 2026 )</li>
-                        <li>Thursday Night ( Jan 08 - Mar 12, 2026 )</li>
-                        <li>Saturday Night ( Jan 10 - Mar 7, 2026 )</li>
-                        <li>Sunday Afternoon ( Jan 11 - Mar 08, 2026 )</li>
-                    </ul>
-                    <a href="https://docs.google.com/forms/d/1LbfVQAj4FTMIt3HUyaSWDujWGu0DLumjHHjr4yIDweg">Registration</a>
-                </div>
-                <div>
-                    <h3>South Surrey</h3>
-                    <ul>
-                        <li>Monday Night ( Jan 05 - Mar 09, 2026 )</li>
-                        <li>Wednesday Night ( Jan 07 - Mar 11, 2026 )</li>
-                    </ul>
-                    <a href="https://docs.google.com/forms/d/1mVKi_-nBO7NFwHG1aySuc98q7xo8JVI1ya4-hOV7pWc">Registration</a>
-                </div>
-            </div>
-
-        </div>
+        </main>
     );
 }
