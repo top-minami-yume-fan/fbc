@@ -106,7 +106,7 @@ export default function Navbar() {
                     <Link href="/placeholder.jpg">
                         <Image
                             src="/icons/menu.svg"
-                            alt="Profile"
+                            alt="Menu"
                             width={36}
                             height={36}
                             className="rounded-full hover:opacity-80 transition"
