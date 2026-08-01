@@ -23,13 +23,13 @@ export default async function Home() {
                 {/* dark overlay for readability */}
                 <div className="absolute inset-0 bg-black/40" />
 
-                {/* overlay text: centered vertically and within left 50% (center at 25%) */}
+                {/* overlay text: slightly left of center */}
                 <div className="absolute inset-0 px-6">
-                    <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 -translate-x-1/2 text-left max-w-lg md:max-w-2xl">
-                        <h1 className="text-3xl md: font-bold text-white drop-shadow-lg leading-tight">
+                    <div className="absolute top-1/2 left-[40%] transform -translate-y-1/2 -translate-x-1/2 text-left max-w-lg md:max-w-2xl">
+                        <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
                             Fleetwood's Leading
                         </h1>
-                        <h1 className="text-3xl md: font-bold text-white drop-shadow-lg leading-tight">
+                        <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg leading-tight">
                             Badminton Academy.
                         </h1>
                     </div>
